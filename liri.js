@@ -1,6 +1,7 @@
 require("dotenv").config();
 var axios = require("axios");
 var moment = require("moment");
+var fs = require("fs");
 var keys = require("./keys.js");
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
@@ -80,12 +81,28 @@ else if (command === "movie-this") {
   });
 }
 
-
 //***** do-what-it-says *****
 // `node liri.js do-what-it-says`
 //   * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 //     * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
 //     * Edit the text in random.txt to test out the feature for movie-this and concert-this.
 else if (command === "do-what-it-says") {
-  
-}
+  fs.readFile("random.txt","utf8",function(error,data) {
+    var argArr = data.split(",");
+    const { exec } = require("child_process");
+
+    // info on child_process code found here: https://stackabuse.com/executing-shell-commands-with-node-js/
+    exec("node liri.js " + argArr[0] + " " + argArr[1], (error, stdout, stderr) => {
+      if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
+    });
+  });
+};
+
