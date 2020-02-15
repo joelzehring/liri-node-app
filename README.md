@@ -16,8 +16,15 @@ All logic lives in a simple `liri.js` file. API calls for different services all
 * [Axios](https://www.npmjs.com/package/axios)
 * [Moment](https://www.npmjs.com/package/moment)
 * [DotEnv](https://www.npmjs.com/package/dotenv)
+4. Spotify requires a key to access their database, available [here](https://developer.spotify.com/).
+5. Create a `.env` file and enter the following lines, replacing the applicable text with your API keys:
 
-4. Once npm finishes, it's time to run some searches! 
+`
+SPOTIFY_ID=your-spotify-id
+SPOTIFY_SECRET=your-spotify-secret
+`
+
+6. Once npm finishes, it's time to run some searches! 
 * `node liri.js concert-this <artist/band name here>`
 * `node liri.js spotify-this-song "<song name here>"`
 * `node liri.js movie-this "<movie title here>"`
